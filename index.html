@@ -15,6 +15,7 @@
             background-color: #fcfcfc;
             color: #1a1a1a;
             overflow-x: hidden;
+            margin: 0;
         }
         /* Custom subtle noise/texture */
         .bg-texture {
@@ -33,14 +34,19 @@
         html {
             scroll-behavior: smooth;
         }
+        #root {
+            min-height: 100vh;
+        }
     </style>
-<script type="importmap">
+    <script type="importmap">
 {
   "imports": {
+    "react": "https://esm.sh/react@19.2.3",
+    "react-dom": "https://esm.sh/react-dom@19.2.3",
+    "react-dom/client": "https://esm.sh/react-dom@19.2.3/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.475.0",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+    "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
@@ -48,5 +54,7 @@
 <body>
     <div id="root"></div>
     <div class="bg-texture"></div>
+    <!-- 关键修复：添加入口脚本加载 -->
+    <script type="module" src="./index.tsx"></script>
 </body>
 </html>

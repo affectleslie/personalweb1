@@ -1,10 +1,10 @@
 
-import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Thoughts from './pages/Thoughts';
-import Observations from './pages/Observations';
-import { Page } from './types';
+import React, { useState } from 'react';
+import Navbar from './components/Navbar.tsx';
+import Home from './pages/Home.tsx';
+import Thoughts from './pages/Thoughts.tsx';
+import Observations from './pages/Observations.tsx';
+import { Page } from './types.ts';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>(Page.Home);
@@ -13,10 +13,13 @@ const App: React.FC = () => {
   const handleNavigate = (page: Page) => {
     if (page === currentPage) return;
     setTransitioning(true);
+    // 平滑切换动效：先淡出，再切换内容，最后淡入
     setTimeout(() => {
       setCurrentPage(page);
       window.scrollTo(0, 0);
-      setTransitioning(false);
+      setTimeout(() => {
+        setTransitioning(false);
+      }, 50);
     }, 600);
   };
 
@@ -30,20 +33,25 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#fcfcfc] transition-colors duration-1000">
+    <div className="relative min-h-screen bg-[#fcfcfc]">
       <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
       
-      <main className={`transition-all duration-1000 ease-in-out ${transitioning ? 'opacity-0 translate-y-4 blur-sm scale-95' : 'opacity-100 translate-y-0 blur-0 scale-100'}`}>
+      <main className={`transition-all duration-700 ease-in-out ${
+        transitioning 
+          ? 'opacity-0 translate-y-8 blur-lg scale-95' 
+          : 'opacity-100 translate-y-0 blur-0 scale-100'
+      }`}>
         {renderPage()}
       </main>
 
-      {/* Decorative Grain / Vignette */}
-      <div className="fixed inset-0 pointer-events-none z-[60] shadow-[inset_0_0_150px_rgba(0,0,0,0.02)]"></div>
+      {/* 装饰性暗角 */}
+      <div className="fixed inset-0 pointer-events-none z-[60] shadow-[inset_0_0_150px_rgba(0,0,0,0.015)]"></div>
       
-      {/* Footer (Minimal) */}
-      <footer className="w-full py-12 flex flex-col items-center justify-center opacity-20 hover:opacity-100 transition-opacity duration-1000">
-        <div className="w-8 h-[1px] bg-black mb-4"></div>
-        <p className="text-[10px] tracking-[0.5em] uppercase">© LENS DIGITAL PORTFOLIO 2024</p>
+      <footer className="w-full py-20 flex flex-col items-center justify-center opacity-30">
+        <div className="w-12 h-[1px] bg-black/20 mb-4"></div>
+        <p className="text-[9px] tracking-[0.6em] uppercase font-light">
+          The Lens · Curator's Sanctuary · 2024
+        </p>
       </footer>
     </div>
   );

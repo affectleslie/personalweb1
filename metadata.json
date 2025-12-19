@@ -1,7 +1,5 @@
 {
   "name": "Lens - Personal Digital Sanctuary",
-  "description": "A minimalist, gallery-inspired personal website built around the concept of a 'lens', featuring a spiritual portrait, a stream of thoughts, and curated observations.",
-  "requestFramePermissions": [
-    "camera"
-  ]
+  "description": "A minimalist, gallery-inspired personal website built around the concept of a 'lens'.",
+  "requestFramePermissions": []
 }
